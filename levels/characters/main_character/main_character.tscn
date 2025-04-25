@@ -1,15 +1,16 @@
-[gd_scene load_steps=6 format=3 uid="uid://c4sou82px1xdb"]
+[gd_scene load_steps=7 format=3 uid="uid://c4sou82px1xdb"]
 
-[ext_resource type="Script" uid="uid://ctiavvy0imb50" path="res://scripts/player/player.gd" id="1_df5ci"]
-[ext_resource type="Script" uid="uid://31ssbp6sqvbv" path="res://scripts/player/smooth_camera.gd" id="2_cvhwb"]
-[ext_resource type="Script" uid="uid://bc6dhcam2ie8j" path="res://scripts/player/crosshair.gd" id="3_sanr3"]
+[ext_resource type="Script" uid="uid://ctiavvy0imb50" path="res://scripts/player/player.gd" id="1_v0tg1"]
+[ext_resource type="Script" uid="uid://31ssbp6sqvbv" path="res://scripts/player/smooth_camera.gd" id="2_daxn3"]
+[ext_resource type="PackedScene" uid="uid://dep7ih6l8knpj" path="res://levels/weapons/smg.tscn" id="3_8nwpn"]
+[ext_resource type="Script" uid="uid://bc6dhcam2ie8j" path="res://scripts/player/crosshair.gd" id="4_arlau"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5ewka"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_df5ci"]
 
 [node name="player" type="CharacterBody3D" groups=["player"]]
-script = ExtResource("1_df5ci")
+script = ExtResource("1_v0tg1")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CapsuleShape3D_5ewka")
@@ -22,7 +23,9 @@ mesh = SubResource("CapsuleMesh_df5ci")
 [node name="smooth_camera" type="Camera3D" parent="camera_pivot"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 top_level = true
-script = ExtResource("2_cvhwb")
+script = ExtResource("2_daxn3")
+
+[node name="smg" parent="camera_pivot/smooth_camera" instance=ExtResource("3_8nwpn")]
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchors_preset = 15
@@ -33,4 +36,4 @@ grow_vertical = 2
 
 [node name="crosshair" type="Control" parent="CenterContainer"]
 layout_mode = 2
-script = ExtResource("3_sanr3")
+script = ExtResource("4_arlau")

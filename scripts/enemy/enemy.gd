@@ -1,10 +1,12 @@
 extends CharacterBody3D
 
-
 const SPEED = 5.0
 const JUMP_VELOCITY = 4.5
 
+@export var attack_range := 1.5
+
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 var player: CharacterBody3D
 var provoked := false
@@ -31,7 +33,11 @@ func _physics_process(delta: float) -> void:
 	if distance <= agro_range:
 		provoked = true
 
+	if provoked and distance <= attack_range:
+		animation_player.play("attack")
+
 	if direction:
+		look_at_target(direction)
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
 	else:
@@ -39,3 +45,11 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0, SPEED)
 
 	move_and_slide()
+
+func look_at_target(direction: Vector3) -> void:
+	var adjusted_direction = direction
+	adjusted_direction.y = 0
+	look_at(global_position + adjusted_direction, Vector3.UP, true)
+
+func attack() -> void:
+	print("Attacking player!")
