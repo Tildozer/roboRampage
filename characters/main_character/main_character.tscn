@@ -1,8 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://c4sou82px1xdb"]
+[gd_scene load_steps=14 format=3 uid="uid://c4sou82px1xdb"]
 
 [ext_resource type="Script" uid="uid://ctiavvy0imb50" path="res://scripts/player/player.gd" id="1_v0tg1"]
 [ext_resource type="Script" uid="uid://31ssbp6sqvbv" path="res://scripts/player/smooth_camera.gd" id="2_daxn3"]
+[ext_resource type="PackedScene" uid="uid://bkrmfxk6fkqcu" path="res://weapons/rifle.tscn" id="3_1t1u0"]
 [ext_resource type="PackedScene" uid="uid://dep7ih6l8knpj" path="res://weapons/smg.tscn" id="3_8nwpn"]
+[ext_resource type="Script" uid="uid://uutfntgtgewn" path="res://scripts/weapon/weapon_handler.gd" id="3_e2av0"]
 [ext_resource type="Script" uid="uid://bc6dhcam2ie8j" path="res://scripts/player/crosshair.gd" id="4_arlau"]
 [ext_resource type="Texture2D" uid="uid://dw40nrjfx6vfb" path="res://assets/textures/damage.png" id="5_jtcto"]
 [ext_resource type="PackedScene" uid="uid://dcx1jx1bb2nfj" path="res://characters/main_character/gameover_menu.tscn" id="6_1t1u0"]
@@ -89,8 +91,6 @@ top_level = true
 cull_mask = 1048573
 script = ExtResource("2_daxn3")
 
-[node name="smg" parent="camera_pivot/smooth_camera" instance=ExtResource("3_8nwpn")]
-
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="camera_pivot/smooth_camera"]
 remote_path = NodePath("../../../SubViewportContainer/SubViewport/weapon_camera")
 
@@ -112,6 +112,17 @@ render_target_update_mode = 4
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 cull_mask = 1047554
 fov = 40.0
+
+[node name="weapon_handler" type="Node3D" parent="SubViewportContainer/SubViewport/weapon_camera" node_paths=PackedStringArray("weapon_1", "weapon_2")]
+script = ExtResource("3_e2av0")
+weapon_1 = NodePath("rifle")
+weapon_2 = NodePath("smg")
+
+[node name="rifle" parent="SubViewportContainer/SubViewport/weapon_camera/weapon_handler" instance=ExtResource("3_1t1u0")]
+visible = false
+
+[node name="smg" parent="SubViewportContainer/SubViewport/weapon_camera/weapon_handler" instance=ExtResource("3_8nwpn")]
+visible = false
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchors_preset = 15

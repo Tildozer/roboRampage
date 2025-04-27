@@ -6,6 +6,7 @@ extends Node3D
 @export var weapon_damage := 15
 @export var muzzle_flash: GPUParticles3D
 @export var sparks: PackedScene
+@export var automatic := false
 
 @onready var cooldown_timer: Timer = $cooldown_timer
 @onready var weapon_position: Vector3 = weapon_mesh.position
@@ -18,9 +19,12 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if Input.is_action_pressed("fire_weapon") and cooldown_timer.is_stopped():
-		shoot()
-	
+	if automatic:
+		if Input.is_action_pressed("fire_weapon") and cooldown_timer.is_stopped():
+			shoot()
+	else:
+		if Input.is_action_just_pressed("fire_weapon") and cooldown_timer.is_stopped():
+			shoot()
 	weapon_mesh.position = weapon_mesh.position.lerp(weapon_position, delta * 10.0)
 
 func shoot() -> void:
@@ -30,6 +34,7 @@ func shoot() -> void:
 	weapon_mesh.position.z += recoil
 	if collider is Enemy:
 		collider.curr_health -= weapon_damage
-	var spark = sparks.instantiate()
-	add_child(spark)
-	spark.global_position = raycast.get_collision_point()
+	if collider != null:
+		var spark = sparks.instantiate()
+		add_child(spark)
+		spark.global_position = raycast.get_collision_point()

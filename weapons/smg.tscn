@@ -32,9 +32,10 @@ size = Vector3(0.1, 0.1, 0.1)
 weapon_mesh = NodePath("SMG")
 muzzle_flash = NodePath("muzzle_flash")
 sparks = ExtResource("2_vt36x")
+automatic = true
 
 [node name="SMG" parent="." index="1" instance=ExtResource("2_n18a5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, -0.235, -1.8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.7, -0.235, -1.6)
 
 [node name="Suppressors_003" parent="SMG" index="0"]
 layers = 2
@@ -64,7 +65,7 @@ layers = 2
 layers = 2
 
 [node name="muzzle_flash" type="GPUParticles3D" parent="." index="3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.689, -0.2, -2.9)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.689, -0.2, -2.717)
 layers = 2
 cast_shadow = 0
 emitting = false
