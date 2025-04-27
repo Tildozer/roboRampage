@@ -3,8 +3,6 @@ extends Node3D
 @export var weapon_1: Node3D
 @export var weapon_2: Node3D
 
-# @export var weapons: Array[Node3D]
-
 func _ready() -> void:
 	equip(weapon_1)
 
