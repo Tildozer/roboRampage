@@ -1,11 +1,18 @@
 extends CharacterBody3D
+class_name Player
 
 const SPEED = 5.0
 
+@export var max_health := 100
 @export var jump_height := 1.0
 @export var fall_multiplier := 2.5
 
 var mouse_motion := Vector2.ZERO
+var curr_health := max_health:
+	set(value):
+		curr_health = value
+		if curr_health <= 0:
+			get_tree().quit()
 
 @onready var camera_pivot: Node3D = $camera_pivot
 

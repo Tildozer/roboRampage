@@ -7,3 +7,8 @@ script = ExtResource("1_fxeod")
 
 [node name="cooldown_timer" type="Timer" parent="."]
 one_shot = true
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+target_position = Vector3(0, 0, -100)
+debug_shape_custom_color = Color(0, 1, 0, 1)
+debug_shape_thickness = 4

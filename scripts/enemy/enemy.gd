@@ -1,16 +1,23 @@
 extends CharacterBody3D
+class_name Enemy
 
 const SPEED = 5.0
-const JUMP_VELOCITY = 4.5
 
+@export var max_health := 100
 @export var attack_range := 1.5
 
 @onready var navigation_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
-var player: CharacterBody3D
+var player: Player
 var provoked := false
 var agro_range := 12.0
+var curr_health := max_health:
+	set(value):
+		curr_health = value
+		if curr_health <= 0:
+			queue_free()
+		provoked = true
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
@@ -53,3 +60,4 @@ func look_at_target(direction: Vector3) -> void:
 
 func attack() -> void:
 	print("Attacking player!")
+	player.curr_health -= 20
