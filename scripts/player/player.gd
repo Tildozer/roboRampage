@@ -10,10 +10,14 @@ const SPEED = 5.0
 var mouse_motion := Vector2.ZERO
 var curr_health := max_health:
 	set(value):
+		if value < curr_health:
+			animation_player.stop(false)
+			animation_player.play("take_damage")
 		curr_health = value
 		if curr_health <= 0:
 			get_tree().quit()
 
+@onready var animation_player: AnimationPlayer = $damage_texture/AnimationPlayer
 @onready var camera_pivot: Node3D = $camera_pivot
 
 func _ready() -> void:
