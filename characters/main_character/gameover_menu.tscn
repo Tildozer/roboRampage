@@ -1,0 +1,67 @@
+[gd_scene load_steps=8 format=3 uid="uid://dcx1jx1bb2nfj"]
+
+[ext_resource type="FontFile" uid="uid://bwnbui5qtyajk" path="res://assets/fonts/CascadiaCode.ttf" id="1_8ytk4"]
+[ext_resource type="Script" uid="uid://8fdutfjfo03s" path="res://scripts/ui/gameover_menu.gd" id="2_ck8k3"]
+[ext_resource type="Shader" uid="uid://d4fn0fut2ypl0" path="res://characters/main_character/gameover_menu.tres" id="3_bis3v"]
+
+[sub_resource type="Theme" id="Theme_ck8k3"]
+default_font = ExtResource("1_8ytk4")
+default_font_size = 64
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dav2t"]
+shader = ExtResource("3_bis3v")
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_yy5k8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8ytk4"]
+font_size = 96
+
+[node name="gameover_menu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_ck8k3")
+script = ExtResource("2_ck8k3")
+
+[node name="bg_blur" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_dav2t")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("PlaceholderTexture2D_yy5k8")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(512, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "YOU DIED"
+label_settings = SubResource("LabelSettings_8ytk4")
+horizontal_alignment = 1
+
+[node name="restart" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "TRY AGAIN?"
+
+[node name="quit" type="Button" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+text = "QUIT"
+
+[connection signal="pressed" from="CenterContainer/VBoxContainer/restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/quit" to="." method="_on_quit_pressed"]

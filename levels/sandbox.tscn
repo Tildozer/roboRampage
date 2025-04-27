@@ -160,4 +160,4 @@ size = Vector3(64, 1, 64)
 material = ExtResource("1_7he1i")
 
 [node name="enemy" parent="." instance=ExtResource("5_0glgv")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.8277, 1, -28.6589)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.1723, 1, -28.6589)

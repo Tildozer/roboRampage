@@ -15,10 +15,11 @@ var curr_health := max_health:
 			animation_player.play("take_damage")
 		curr_health = value
 		if curr_health <= 0:
-			get_tree().quit()
+			gameover_menu.gameover()
 
 @onready var animation_player: AnimationPlayer = $damage_texture/AnimationPlayer
 @onready var camera_pivot: Node3D = $camera_pivot
+@onready var gameover_menu: Control = $gameover_menu
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
