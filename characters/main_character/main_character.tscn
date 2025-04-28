@@ -92,6 +92,7 @@ mesh = SubResource("CapsuleMesh_df5ci")
 [node name="camera_pivot" type="Node3D" parent="."]
 
 [node name="smooth_camera" type="Camera3D" parent="camera_pivot"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 top_level = true
 cull_mask = 1048573
@@ -115,6 +116,7 @@ size = Vector2i(1152, 648)
 render_target_update_mode = 4
 
 [node name="weapon_camera" type="Camera3D" parent="SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 cull_mask = 1047554
 fov = 40.0

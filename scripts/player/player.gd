@@ -6,6 +6,7 @@ const SPEED = 5.0
 @export var max_health := 100
 @export var jump_height := 1.0
 @export var fall_multiplier := 2.5
+@export var aim_multiplier := 0.7
 
 var mouse_motion := Vector2.ZERO
 var curr_health := max_health:
@@ -18,12 +19,45 @@ var curr_health := max_health:
 			gameover_menu.gameover()
 
 @onready var animation_player: AnimationPlayer = $damage_texture/AnimationPlayer
-@onready var camera_pivot: Node3D = $camera_pivot
+
 @onready var gameover_menu: Control = $gameover_menu
+
 @onready var ammo_handler: AmmoHandler = %ammo_handler
+
+@onready var camera_pivot: Node3D = $camera_pivot
+@onready var smooth_camera: Camera3D = %smooth_camera
+@onready var smooth_default_fov := smooth_camera.fov
+
+@onready var weapon_camera: Camera3D = %weapon_camera
+@onready var weapon_default_fov := weapon_camera.fov
+
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+func _process(delta):
+	if Input.is_action_pressed("aim"):
+		smooth_camera.fov = lerp(
+			smooth_camera.fov, 
+			smooth_default_fov * aim_multiplier, 
+			delta * 20
+		)
+		weapon_camera.fov = lerp(
+			weapon_camera.fov, 
+			weapon_default_fov * aim_multiplier, 
+			delta * 20
+		)
+	else:
+		smooth_camera.fov = lerp(
+			smooth_camera.fov, 
+			smooth_default_fov, 
+			delta * 30
+		)
+		weapon_camera.fov = lerp(
+			weapon_camera.fov, 
+			weapon_default_fov, 
+			delta * 30
+		)
 
 func _physics_process(delta: float) -> void:
 	handleCameraRotation()
@@ -44,6 +78,9 @@ func _physics_process(delta: float) -> void:
 	if direction:
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
+		if Input.is_action_pressed("aim"):
+			velocity.x *= aim_multiplier
+			velocity.z *= aim_multiplier
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
@@ -54,6 +91,8 @@ func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			mouse_motion = -event.relative * 0.005
+			if Input.is_action_pressed("aim"):
+				mouse_motion *= aim_multiplier
 	if event.is_action_pressed("ui_cancel"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
