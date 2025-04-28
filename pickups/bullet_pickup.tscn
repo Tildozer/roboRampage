@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://dh3i27st25fiq"]
+
+[ext_resource type="PackedScene" uid="uid://baya5xo62t5br" path="res://pickups/pickup.tscn" id="1_5iak5"]
+[ext_resource type="Shader" uid="uid://c0u626nxvjxdj" path="res://pickups/red_fresnel_aura.tres" id="2_oofr2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oofr2"]
+albedo_color = Color(1, 0.411765, 0.407843, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_11h7g"]
+render_priority = 0
+shader = ExtResource("2_oofr2")
+
+[node name="bullet_pickup" instance=ExtResource("1_5iak5")]
+ammo_amount = 10
+
+[node name="ammo_mesh" parent="." index="0"]
+transform = Transform3D(0.707107, -0.707107, 0, 0.5, 0.5, -0.707107, 0.5, 0.5, 0.707107, 0, 0, 0)
+material_override = SubResource("StandardMaterial3D_oofr2")
+
+[node name="fresnel_aura" parent="." index="3"]
+material_override = SubResource("ShaderMaterial_11h7g")

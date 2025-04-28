@@ -1,0 +1,69 @@
+[gd_scene load_steps=8 format=3 uid="uid://baya5xo62t5br"]
+
+[ext_resource type="Script" uid="uid://cx26pvs6160im" path="res://scripts/pickups/pickup.gd" id="1_ra232"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_1ckwn"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ra232"]
+radius = 1.0
+
+[sub_resource type="Animation" id="Animation_0ketk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ammo_mesh:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.785398, 0, 0.785398)]
+}
+
+[sub_resource type="Animation" id="Animation_ra232"]
+resource_name = "idle"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ammo_mesh:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [Vector3(0.785398, 0, 0.785398), Vector3(0.785398, 6.28319, 0.785398)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_i5kuo"]
+_data = {
+&"RESET": SubResource("Animation_0ketk"),
+&"idle": SubResource("Animation_ra232")
+}
+
+[sub_resource type="SphereMesh" id="SphereMesh_pbiw3"]
+
+[node name="pickup" type="Area3D"]
+script = ExtResource("1_ra232")
+
+[node name="ammo_mesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707107, -0.707107, 0, 0.5, 0.5, -0.707107, 0.5, 0.5, 0.707107, 0, 0, 0)
+mesh = SubResource("BoxMesh_1ckwn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_ra232")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_i5kuo")
+}
+autoplay = "idle"
+
+[node name="fresnel_aura" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_pbiw3")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

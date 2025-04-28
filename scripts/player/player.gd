@@ -20,6 +20,7 @@ var curr_health := max_health:
 @onready var animation_player: AnimationPlayer = $damage_texture/AnimationPlayer
 @onready var camera_pivot: Node3D = $camera_pivot
 @onready var gameover_menu: Control = $gameover_menu
+@onready var ammo_handler: AmmoHandler = %ammo_handler
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
