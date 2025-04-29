@@ -25,13 +25,13 @@ environment = SubResource("Environment_ldao0")
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
 
 [node name="overhang" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.17177, 2.75983, -9.15834)
-size = Vector3(10.9122, 0.5, 9.23206)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.023, 2.75, -10.729)
+size = Vector3(3.22701, 0.5, 5.88764)
 material = ExtResource("1_ilwad")
 
 [node name="overhang2" type="CSGBox3D" parent="overhang"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.83461, 0, 6.83717)
-size = Vector3(7.14989, 0.5, 4.53531)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.69067, 0, 6.83717)
+size = Vector3(7.145, 0.5, 4.535)
 material = ExtResource("1_ilwad")
 
 [node name="room_layout" type="CSGBox3D" parent="."]
@@ -89,5 +89,6 @@ size = Vector3(13.6247, 3, 10.8654)
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(0.00908664, 0, -2.97499, 0, 2.975, 0, 2.97499, 0, 0.00908664, -1.04397, 0.1, -0.866467)
+visible = false
 axis = 1
 texture = ExtResource("2_0vhbo")
