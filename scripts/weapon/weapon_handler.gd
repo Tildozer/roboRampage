@@ -22,10 +22,8 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("weapon_2"):
 		equip(weapon_2)
 	if event.is_action_pressed("next_weapon"):
-		print("next_weapon")
 		next_weapon(true)
 	if event.is_action_pressed("prev_weapon"):
-		print("prev_weapon")
 		next_weapon(false)
 
 func next_weapon(next: bool) -> void:
@@ -43,3 +41,6 @@ func get_current_idx() -> int:
 		if get_child(idx).visible:
 			return idx
 	return 0
+
+func get_weapon_ammo() -> AmmoHandler.ammo_type:
+	return get_child(get_current_idx()).ammo_type

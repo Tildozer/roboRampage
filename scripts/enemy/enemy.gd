@@ -60,5 +60,4 @@ func look_at_target(direction: Vector3) -> void:
 	look_at(global_position + adjusted_direction, Vector3.UP, true)
 
 func attack() -> void:
-	print("Attacking player!")
 	player.curr_health -= 20

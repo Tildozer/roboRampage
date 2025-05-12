@@ -19,7 +19,6 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if automatic:
 		if Input.is_action_pressed("fire_weapon") and cooldown_timer.is_stopped():
@@ -36,9 +35,9 @@ func shoot() -> void:
 		cooldown_timer.start(1.0 / fire_rate)
 		var collider = raycast.get_collider()
 		weapon_mesh.position.z += recoil
-		if collider is Enemy:
-			collider.curr_health -= weapon_damage
-		if collider != null:
+		if raycast.is_colliding():
+			if collider is Enemy:
+				collider.curr_health -= weapon_damage
 			var spark = sparks.instantiate()
 			add_child(spark)
 			spark.global_position = raycast.get_collision_point()
