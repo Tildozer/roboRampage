@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bdnh6ic6vhjwv"]
+[gd_scene load_steps=14 format=3 uid="uid://bdnh6ic6vhjwv"]
 
 [ext_resource type="Script" uid="uid://dqp4i0bmlv72" path="res://scripts/enemy/enemy.gd" id="1_n5hwl"]
 [ext_resource type="PackedScene" uid="uid://dggp4tuiy35qo" path="res://assets/enemies/Drone.glb" id="2_nhupr"]
@@ -98,6 +98,30 @@ _data = {
 &"idle": SubResource("Animation_nhupr")
 }
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_nhupr"]
+animation = &"attack"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1ohc2"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ggbst"]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_toq4n"]
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_u8tuc"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_f76jb"]
+states/End/position = Vector2(465, 100)
+states/Start/position = Vector2(208, 100)
+states/attack/node = SubResource("AnimationNodeAnimation_nhupr")
+states/attack/position = Vector2(342, 285)
+states/idle/node = SubResource("AnimationNodeAnimation_1ohc2")
+states/idle/position = Vector2(342, 100)
+transitions = ["idle", "attack", SubResource("AnimationNodeStateMachineTransition_ggbst"), "attack", "idle", SubResource("AnimationNodeStateMachineTransition_toq4n"), "Start", "idle", SubResource("AnimationNodeStateMachineTransition_u8tuc")]
+
 [node name="enemy" type="CharacterBody3D"]
 script = ExtResource("1_n5hwl")
 
@@ -116,3 +140,7 @@ autoplay = "idle"
 
 [node name="Drone" parent="." instance=ExtResource("2_nhupr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeStateMachine_f76jb")
+anim_player = NodePath("../AnimationPlayer")
